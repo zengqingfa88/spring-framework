@@ -98,7 +98,7 @@ public class ReactiveAdapterRegistry {
 
 		// Coroutines
 		if (this.reactorPresent && ClassUtils.isPresent("kotlinx.coroutines.reactor.MonoKt", classLoader)) {
-			new CoroutinesRegistrar().registerAdapters(this);
+//			new CoroutinesRegistrar().registerAdapters(this);
 		}
 	}
 
@@ -341,21 +341,21 @@ public class ReactiveAdapterRegistry {
 
 
 	private static class CoroutinesRegistrar {
-
-		@SuppressWarnings("KotlinInternalInJava")
-		void registerAdapters(ReactiveAdapterRegistry registry) {
-			registry.registerReactiveType(
-					ReactiveTypeDescriptor.singleOptionalValue(Deferred.class,
-							() -> CompletableDeferredKt.CompletableDeferred(null)),
-					source -> CoroutinesUtils.deferredToMono((Deferred<?>) source),
-					source -> CoroutinesUtils.monoToDeferred(Mono.from(source)));
-
-			registry.registerReactiveType(
-					ReactiveTypeDescriptor.multiValue(kotlinx.coroutines.flow.Flow.class, kotlinx.coroutines.flow.FlowKt::emptyFlow),
-					source -> kotlinx.coroutines.reactor.ReactorFlowKt.asFlux((kotlinx.coroutines.flow.Flow<?>) source),
-					kotlinx.coroutines.reactive.ReactiveFlowKt::asFlow
-			);
-		}
+//
+//		@SuppressWarnings("KotlinInternalInJava")
+//		void registerAdapters(ReactiveAdapterRegistry registry) {
+//			registry.registerReactiveType(
+//					ReactiveTypeDescriptor.singleOptionalValue(Deferred.class,
+//							() -> CompletableDeferredKt.CompletableDeferred(null)),
+//					source -> CoroutinesUtils.deferredToMono((Deferred<?>) source),
+//					source -> CoroutinesUtils.monoToDeferred(Mono.from(source)));
+//
+//			registry.registerReactiveType(
+//					ReactiveTypeDescriptor.multiValue(kotlinx.coroutines.flow.Flow.class, kotlinx.coroutines.flow.FlowKt::emptyFlow),
+//					source -> kotlinx.coroutines.reactor.ReactorFlowKt.asFlux((kotlinx.coroutines.flow.Flow<?>) source),
+//					kotlinx.coroutines.reactive.ReactiveFlowKt::asFlow
+//			);
+//		}
 	}
 
 
